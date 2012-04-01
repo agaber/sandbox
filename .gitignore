@@ -1,0 +1,13 @@
+# Ignore generated output
+target/
+
+# Ignore hidden files
+#.*
+
+# Ignore project files
+.classpath
+.project
+
+# Python compiled files
+*.pyc
+
