@@ -78,3 +78,4 @@ class Numbers {
     return this.lowestEven > 0 && this.lowestOdd > 0;
   }
 }
+
