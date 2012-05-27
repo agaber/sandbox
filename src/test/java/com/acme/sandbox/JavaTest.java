@@ -66,4 +66,14 @@ public class JavaTest {
 //  private <T> void genericMethod(T x, T y) {
 //    assertTrue(x.getClass().equals(y.getClass()));
 //  }
+
+  @Test
+  public void itShouldUseReference() {
+    Car carA = new Car("toyota");
+    Car carB = carA;
+    assertEquals(carA, carB);
+
+    carA = new Car("ford");
+    assertEquals(carA, carB);
+  }
 }
