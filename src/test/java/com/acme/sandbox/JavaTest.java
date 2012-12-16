@@ -1,6 +1,8 @@
 package com.acme.sandbox;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,9 +73,9 @@ public class JavaTest {
   public void itShouldUseReference() {
     Car carA = new Car("toyota");
     Car carB = carA;
-    assertEquals(carA, carB);
+    assertSame(carA, carB);
 
     carA = new Car("ford");
-    assertEquals(carA, carB);
+    assertNotSame(carA, carB);
   }
 }
