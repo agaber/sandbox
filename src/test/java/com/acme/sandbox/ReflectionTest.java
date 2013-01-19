@@ -1,6 +1,6 @@
 package com.acme.sandbox;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -31,6 +31,15 @@ public class ReflectionTest {
 
     // The conclusion of this test is that it has to be a public class and it
     // needs getters and setters.
+  }
+
+  @Test
+  public void readAnnotations() throws Exception {
+    MyAnnotation a1 = TestObject.class.getMethod("getProp1").getAnnotation(MyAnnotation.class);
+    assertArrayEquals(new String[] { "A" }, a1.whatInTheActualFuck());
+
+    MyAnnotation a2 = TestObject.class.getMethod("getProp2").getAnnotation(MyAnnotation.class);
+    assertArrayEquals(new String[] {}, a2.whatInTheActualFuck());
   }
 }
 

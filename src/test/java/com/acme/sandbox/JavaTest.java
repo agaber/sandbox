@@ -1,8 +1,10 @@
 package com.acme.sandbox;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,15 @@ public class JavaTest {
   @Before
   public void beforeEach() throws Exception {
     this.count = 0;
+  }
+
+  @Test
+  public void nullShouldNotBeInstanceOfString() throws Exception {
+    Object x = "ok";
+    assertTrue(x instanceof String);
+
+    Object y = null;
+    assertFalse(y instanceof String);
   }
 
   @Test

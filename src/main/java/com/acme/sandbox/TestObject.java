@@ -17,6 +17,7 @@ public class TestObject {
     this.prop3 = prop3;
   }
 
+  @MyAnnotation(whatInTheActualFuck = {"A"})
   public String getProp1() {
     return prop1;
   }
@@ -25,6 +26,7 @@ public class TestObject {
     this.prop1 = prop1;
   }
 
+  @MyAnnotation()
   public long getProp2() {
     return prop2;
   }
