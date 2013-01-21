@@ -21,6 +21,15 @@ public class AlgorithmsTest {
   }
 
   @Test
+  public void quickSort() throws Exception {
+    List<Integer> list = Lists.newArrayList(3, 20, 10, 2, 1, 5);
+    Algorithms.quickSort(list);
+    assertArrayEquals(
+        new Integer[] { 1, 2, 3, 5, 10, 20 },
+        list.toArray());
+  }
+
+  @Test
   public void intersection() throws Exception {
     Set<Integer> a = Sets.newHashSet(3, 1, 3, 3, 2, 4);
     Set<Integer> b = Sets.newHashSet(2, 3, 7, 4, 1, 3);
