@@ -69,4 +69,15 @@ public class DictionaryTest {
     assertEquals(0, table.size());
     assertTrue(table.isEmpty());
   }
+
+  @Test
+  public void itShouldClear() throws Exception {
+    Map<Integer, String> table = new Dictionary<Integer, String>();
+    table.put(1, "a");
+    table.put(2, "b");
+
+    table.clear();
+    assertEquals(0, table.size());
+    assertTrue(table.isEmpty());
+  }
 }

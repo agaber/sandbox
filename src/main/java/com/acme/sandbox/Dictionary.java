@@ -32,18 +32,19 @@ public class Dictionary<K, V> implements Map<K, V> {
     }
   }
 
+  private List<Node<K, V>>[] buckets;
   private int capacity;
   private int size;
-  private Object[] values;
 
   public Dictionary() {
     this(100);
   }
 
+  @SuppressWarnings("unchecked")
   public Dictionary(int initialCapacity) {
     checkArgument(initialCapacity > 0, "the initialCapacity must be greater than zero");
     this.capacity = initialCapacity;
-    this.values = new Object[capacity];
+    this.buckets = new List[capacity];
   }
 
   @Override
@@ -52,9 +53,10 @@ public class Dictionary<K, V> implements Map<K, V> {
     return null;
   }
 
-  @Override
+  @Override @SuppressWarnings("unchecked")
   public void clear() {
-    // TODO
+    this.buckets = new List[capacity];
+    this.size = 0;
   }
 
   @Override
@@ -143,14 +145,13 @@ public class Dictionary<K, V> implements Map<K, V> {
     return null;
   }
 
-  @SuppressWarnings("unchecked")
   private List<Node<K, V>> getBucket(final Object key) {
     checkNotNull(key, "key must not be null");
     int index = key.hashCode() % capacity;
-    List<Node<K, V>> bucket = (List<Node<K, V>>) values[index];
+    List<Node<K, V>> bucket = (List<Node<K, V>>) buckets[index];
 
     if (bucket == null) {
-      values[index] = bucket = Lists.newArrayList();
+      buckets[index] = bucket = Lists.newArrayList();
     }
 
     return bucket;
