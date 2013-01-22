@@ -5,13 +5,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
+
 import org.junit.Test;
 
-public class HashtableTest {
+public class DictionaryTest {
 
   @Test
   public void itShouldPutAndGet() throws Exception {
-    Hashtable<String, String> table = new Hashtable<String, String>();
+    Map<String, String> table = new Dictionary<String, String>();
     table.put("a", "abc");
     table.put("b", "bcd");
     table.put("c", "cde");
@@ -26,9 +28,28 @@ public class HashtableTest {
     assertNull(table.get("x"));
   }
 
+
+  @Test
+  public void itShouldReturnTheSizeAndIsEmpty() throws Exception {
+    Map<String, String> table = new Dictionary<String, String>();
+    assertTrue(table.isEmpty());
+
+    table.put("a", "abc");
+    assertEquals(1, table.size());
+    assertFalse(table.isEmpty());
+
+    table.put("b", "bcd");
+    assertEquals(2, table.size());
+    assertFalse(table.isEmpty());
+
+    table.put("c", "cde");
+    assertEquals(3, table.size());
+    assertFalse(table.isEmpty());
+  }
+
   @Test
   public void itShouldRemove() throws Exception {
-    Hashtable<Integer, String> table = new Hashtable<Integer, String>();
+    Map<Integer, String> table = new Dictionary<Integer, String>();
     table.put(1, "a");
     table.put(2, "b");
 
@@ -47,23 +68,5 @@ public class HashtableTest {
     assertNull(removed3);
     assertEquals(0, table.size());
     assertTrue(table.isEmpty());
-  }
-
-  @Test
-  public void itShouldReturnTheSizeAndIsEmpty() throws Exception {
-    Hashtable<String, String> table = new Hashtable<String, String>();
-    assertTrue(table.isEmpty());
-
-    table.put("a", "abc");
-    assertEquals(1, table.size());
-    assertFalse(table.isEmpty());
-
-    table.put("b", "bcd");
-    assertEquals(2, table.size());
-    assertFalse(table.isEmpty());
-
-    table.put("c", "cde");
-    assertEquals(3, table.size());
-    assertFalse(table.isEmpty());
   }
 }
