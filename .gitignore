@@ -8,3 +8,4 @@ target/
 # Python compiled files
 *.pyc
 
+datanucleus.log
