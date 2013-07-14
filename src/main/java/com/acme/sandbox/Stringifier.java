@@ -24,10 +24,7 @@ import com.google.common.collect.Sets;
 
 /** Methods for turning objects into strings. */
 public class Stringifier {
-  public enum Format {
-    JSON,
-    YAML
-  }
+  public enum Format { JSON, YAML }
 
   /**
    * Marker annotation indicates that this object should be parsed recursively
@@ -36,10 +33,7 @@ public class Stringifier {
   @Documented
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.TYPE)
-  public @interface Stringifiable {
-
-  }
-
+  public @interface Stringifiable { }
 
   /** Prints an object in JSON format. */
   public String stringify(Object o) {
