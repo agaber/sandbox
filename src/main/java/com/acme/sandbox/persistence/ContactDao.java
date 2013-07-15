@@ -3,7 +3,6 @@ package com.acme.sandbox.persistence;
 import java.util.Collection;
 import java.util.List;
 
-import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -48,19 +47,22 @@ public class ContactDao {
     return search(query, null);
   }
 
-  public List<Contact> search(String query, String ordering) {
+  public List<Contact> search(String filter, String ordering) {
     PersistenceManager pm = pmf.getPersistenceManager();
     Transaction transaction = pm.currentTransaction();
     try {
-      Extent<Contact> extent = pm.getExtent(Contact.class, true);
-      Query q = pm.newQuery(extent, query);
+      Query query = pm.newQuery(pm.getExtent(Contact.class, true));
+
+      if (!Strings.isNullOrEmpty(filter)) {
+        query.setFilter(filter);
+      }
 
       if (!Strings.isNullOrEmpty(ordering)) {
-        q.setOrdering(ordering);
+        query.setOrdering(ordering);
       }
 
       @SuppressWarnings("unchecked")
-      Collection<Contact> c = (Collection<Contact>) q.execute();
+      Collection<Contact> c = (Collection<Contact>) query.execute();
       return Lists.newArrayList(c);
     } finally {
       close(pm, transaction);

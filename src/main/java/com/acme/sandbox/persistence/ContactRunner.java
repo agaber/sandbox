@@ -19,9 +19,6 @@ public final class ContactRunner {
   // Note: Use JCommander if you need to parse command line ops.
 
   public static void main(String[] args) {
-    PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("mongodb");
-    ContactDao dao = new ContactDao(pmf);
-
     Contact contact = new Contact();
     contact.name = "Contact # " + System.currentTimeMillis();
     contact.email = "test@yahoo.com";
@@ -33,6 +30,8 @@ public final class ContactRunner {
     contact.address.setPostalCode("10011");
     contact.address.setCountry("US");
 
+    PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("mongodb");
+    ContactDao dao = new ContactDao(pmf);
     dao.save(contact);
     LOG.info("Saved contact {}.", contact);
 
