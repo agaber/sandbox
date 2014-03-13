@@ -11,11 +11,13 @@ import javax.jdo.PersistenceManagerFactory;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Ignore("Requires mongodb installation")
 @RunWith(MongoDatabaseTestRunner.class)
 public class ContactDaoTest {
   static final Logger LOG = LoggerFactory.getLogger(MongoDatabaseTestRunner.class);
