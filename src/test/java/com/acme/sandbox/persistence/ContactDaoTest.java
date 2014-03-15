@@ -17,6 +17,8 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.acme.sandbox.persistence.testing.MongoDatabaseTestRunner;
+
 @Ignore("Requires mongodb installation")
 @RunWith(MongoDatabaseTestRunner.class)
 public class ContactDaoTest {

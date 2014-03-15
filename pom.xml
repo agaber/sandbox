@@ -122,11 +122,11 @@
       <version>3.0.1</version>
     </dependency>
 
-		<dependency>
-		  <groupId>jgrapht</groupId>
-		  <artifactId>jgrapht</artifactId>
-		  <version>0.7.3</version>
-		</dependency>
+    <dependency>
+      <groupId>jgrapht</groupId>
+      <artifactId>jgrapht</artifactId>
+      <version>0.7.3</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -147,25 +147,25 @@
     <finalName>${project.name}</finalName>
     
     <plugins>
-	    <plugin>
-		    <groupId>org.datanucleus</groupId>
-		    <artifactId>datanucleus-maven-plugin</artifactId>
-		    <version>3.2.0-release</version>
-		    <configuration>
-	        <api>JDO</api>
-	        <props>${basedir}/datanucleus.properties</props>
-	<!--      <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
-	        <verbose>true</verbose>
-	      </configuration>
-	      <executions>
-	        <execution>
-	          <phase>process-classes</phase>
-	          <goals><goal>enhance</goal></goals>
-	        </execution>
-	      </executions>
-	    </plugin>
-	    
-	    <plugin>
+      <plugin>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-maven-plugin</artifactId>
+        <version>3.2.0-release</version>
+        <configuration>
+          <api>JDO</api>
+          <props>${basedir}/datanucleus.properties</props>
+  <!--      <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
+          <verbose>true</verbose>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals><goal>enhance</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>

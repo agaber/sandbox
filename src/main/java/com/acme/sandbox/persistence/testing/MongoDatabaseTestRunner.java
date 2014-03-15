@@ -1,4 +1,4 @@
-package com.acme.sandbox.persistence;
+package com.acme.sandbox.persistence.testing;
 
 import java.io.BufferedReader;
 import java.io.File;
