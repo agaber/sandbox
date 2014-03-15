@@ -69,6 +69,6 @@ public class Address {
 
   @Override
   public String toString() {
-    return new MoreStrings().stringify(this);
+    return MoreStrings.stringify(this);
   }
 }

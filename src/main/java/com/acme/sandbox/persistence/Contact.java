@@ -48,6 +48,6 @@ public class Contact {
 
   @Override
   public String toString() {
-    return new MoreStrings().stringify(this);
+    return MoreStrings.stringify(this);
   }
 }
