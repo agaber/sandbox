@@ -19,9 +19,9 @@ import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acme.sandbox.Stringifier;
-import com.acme.sandbox.Stringifier.Format;
-import com.acme.sandbox.Stringifier.Stringifiable;
+import com.acme.sandbox.common.MoreStrings;
+import com.acme.sandbox.common.MoreStrings.Format;
+import com.acme.sandbox.common.MoreStrings.Stringifiable;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -66,7 +66,7 @@ public class PubSubModule extends AbstractModule {
 
   @Provides @Singleton
   public ConnectionFactory connectionFactory(Args args) {
-    LOG.info("Using Command Line Args: {}", new Stringifier().stringify(args, Format.YAML));
+    LOG.info("Using Command Line Args: {}", MoreStrings.stringify(args, Format.YAML));
     ImmutableMap.Builder<String, Object> params = ImmutableMap.builder();
     params.put(TransportConstants.HOST_PROP_NAME, args.host);
     params.put(TransportConstants.PORT_PROP_NAME, args.port);

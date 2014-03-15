@@ -5,7 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.acme.sandbox.Stringifier;
+import com.acme.sandbox.common.MoreStrings;
 
 @PersistenceCapable
 public class Address {
@@ -69,6 +69,6 @@ public class Address {
 
   @Override
   public String toString() {
-    return new Stringifier().stringify(this);
+    return new MoreStrings().stringify(this);
   }
 }

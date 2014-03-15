@@ -5,7 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.acme.sandbox.Stringifier;
+import com.acme.sandbox.common.MoreStrings;
 import com.google.common.base.Objects;
 
 @PersistenceCapable
@@ -48,6 +48,6 @@ public class Contact {
 
   @Override
   public String toString() {
-    return new Stringifier().stringify(this);
+    return new MoreStrings().stringify(this);
   }
 }

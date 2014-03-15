@@ -1,13 +1,13 @@
-package com.acme.sandbox;
+package com.acme.sandbox.common;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.acme.sandbox.Stringifier.Format;
-import com.acme.sandbox.Stringifier.Stringifiable;
+import com.acme.sandbox.common.MoreStrings.Format;
+import com.acme.sandbox.common.MoreStrings.Stringifiable;
 
-public class StringifierTest {
+public class MoreStringsTest {
 
   @Test
   public void shouldStringifyToYaml() throws Exception {
@@ -20,7 +20,7 @@ public class StringifierTest {
             "fieldA: yup%n" +
             "fieldB: 100%n" +
             "fieldC: cool%n"),
-        new Stringifier().stringify(newObject(), Format.YAML));
+        MoreStrings.stringify(newObject(), Format.YAML));
   }
 
   @Test
@@ -36,7 +36,7 @@ public class StringifierTest {
             "    \"anotherField\" : \"this is another, field\"%n" +
             "  }%n" +
             "}"),
-        new Stringifier().stringify(newObject()));
+        MoreStrings.stringify(newObject()));
   }
 
   private AA newObject() {

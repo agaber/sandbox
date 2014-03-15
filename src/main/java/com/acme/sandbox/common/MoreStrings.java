@@ -1,4 +1,4 @@
-package com.acme.sandbox;
+package com.acme.sandbox.common;
 
 import java.io.StringWriter;
 import java.lang.annotation.Documented;
@@ -22,8 +22,11 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-/** Methods for turning objects into strings. */
-public class Stringifier {
+/**
+ * Methods for turning objects into strings.
+ * It's like Guava's Strings, only More?
+ */
+public final class MoreStrings {
   public enum Format { JSON, YAML }
 
   /**
@@ -36,7 +39,7 @@ public class Stringifier {
   public @interface Stringifiable { }
 
   /** Prints an object in JSON format. */
-  public String stringify(Object o) {
+  public static String stringify(Object o) {
     return stringify(o, Format.JSON);
   }
 
@@ -49,7 +52,7 @@ public class Stringifier {
    *
    * <p>The Json format will just whatever the Jackson library does.
    */
-  public String stringify(Object o, Format format) {
+  public static String stringify(Object o, Format format) {
     if (format == Format.YAML) {
       StringWriter writer = new StringWriter();
       new Yaml().dump(build(o), writer);
@@ -63,7 +66,7 @@ public class Stringifier {
     }
   }
 
-  private ImmutableMap<String, Object> build(Object o) {
+  private static ImmutableMap<String, Object> build(Object o) {
     ImmutableMap.Builder<String, Object> props = ImmutableMap.builder();
     Class<?> type = o == null ? null : o.getClass();
     if (o == null || !isStringifiable(type)) {
@@ -100,7 +103,7 @@ public class Stringifier {
     return props.build();
   }
 
-  private Collection<Field> fields(Class<?> type) {
+  private static Collection<Field> fields(Class<?> type) {
     Set<Field> fields = Sets.newHashSet();
 
     Class<?> superclass = type.getSuperclass();
@@ -119,11 +122,11 @@ public class Stringifier {
     return fields;
   }
 
-  private boolean isStringifiable(Class<?> type) {
+  private static boolean isStringifiable(Class<?> type) {
     return type != null && type.getAnnotation(Stringifiable.class) != null;
   }
 
-  private ImmutableList<Field> sort(Collection<Field> fields) {
+  private static ImmutableList<Field> sort(Collection<Field> fields) {
     List<Field> list = Lists.newArrayList(fields);
     Collections.sort(list, new Comparator<Field>() {
       @Override
@@ -133,4 +136,6 @@ public class Stringifier {
     });
     return ImmutableList.copyOf(list);
   }
+
+  private MoreStrings() {}
 }
