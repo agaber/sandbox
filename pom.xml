@@ -1,7 +1,7 @@
-<project 
-    xmlns="http://maven.apache.org/POM/4.0.0" 
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
       http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -9,13 +9,13 @@
   <artifactId>sandbox</artifactId>
   <packaging>jar</packaging>
   <version>0.0.1</version>
-  
+
   <name>sandbox</name>
-  
+
   <description>
-    Project I use for testing random things. 
+    Project I use for testing random things.
   </description>
-  
+
   <properties>
     <downloadJavadocs>true</downloadJavadocs>
     <downloadSources>true</downloadSources>
@@ -24,14 +24,20 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
- 
+
   <dependencies>
+    <dependency>
+      <groupId>args4j</groupId>
+      <artifactId>args4j</artifactId>
+      <version>2.0.26</version>
+    </dependency>
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>14.0.1</version>
     </dependency>
-    
+
     <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
@@ -61,13 +67,13 @@
       <artifactId>jackson-mapper-asl</artifactId>
       <version>1.9.12</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jdo</artifactId>
       <version>[3.2.0, 3.2.99)</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-core</artifactId>
@@ -79,7 +85,7 @@
       <artifactId>datanucleus-jdo-query</artifactId>
       <version>3.0.2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-mongodb</artifactId>
@@ -91,13 +97,13 @@
       <artifactId>mongo-java-driver</artifactId>
       <version>2.11.2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
       <version>1.9.5</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -109,13 +115,13 @@
       <artifactId>snakeyaml</artifactId>
       <version>1.12</version>
     </dependency>
-    
+
     <dependency>
       <groupId>javax.cache</groupId>
       <artifactId>cache-api</artifactId>
       <version>0.61</version>
     </dependency>
-            
+
     <dependency>
       <groupId>javax.jdo</groupId>
       <artifactId>jdo-api</artifactId>
@@ -123,9 +129,30 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.jms</groupId>
+      <artifactId>javax.jms-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>jgrapht</groupId>
       <artifactId>jgrapht</artifactId>
       <version>0.7.3</version>
+    </dependency>
+    
+    <!-- Hornetq stuff for pubsub client -->
+    <dependency>
+      <groupId>org.hornetq</groupId>
+      <artifactId>hornetq-jms-client</artifactId>
+      <version>2.4.1.Final</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.hornetq</groupId>
+      <artifactId>hornetq-transports</artifactId>
+      <version>2.0.0.GA</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -145,7 +172,7 @@
 
   <build>
     <finalName>${project.name}</finalName>
-    
+
     <plugins>
       <plugin>
         <groupId>org.datanucleus</groupId>
@@ -164,7 +191,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
