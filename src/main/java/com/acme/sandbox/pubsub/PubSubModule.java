@@ -6,7 +6,7 @@ import java.io.PrintStream;
 
 import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
-import javax.jms.Queue;
+import javax.jms.Destination;
 
 import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.jms.HornetQJMSClient;
@@ -30,20 +30,33 @@ import com.google.inject.Provides;
  * In this package I'm experimenting with publisher/subscribe in Java using
  * JBoss' HornetQ, which seemed popular and supported JMS 2.0.
  *
- * <p>Some reference material I found useful at the time:
- * <li>http://docs.oracle.com/javaee/5/tutorial/doc/bnbpn.html
- * <li>http://docs.jboss.org/hornetq/2.4.0.Final/docs/user-manual/html_single/index.html
- * <li>http://hornetq.blogspot.com/2009/09/hornetq-simple-example-using-maven.html
- * <li>http://java.dzone.com/articles/hornetq-getting-started
- * <li>http://activemq.apache.org/hello-world.html
- * <li>http://howtodoinjava.com/2013/03/22/basic-jms-messaging-example-using-hornetq-stand-alone-server/
+ * <p>To make this work you need a JMS server (again I was using HornetQ) and
+ * you need to make configuration changes to your server. See
+ * {@link #destination(Args)} for a description about that.
  *
- * <p>I eschew configuration files but I'm guessing that's how most people use
- * JMS. I didn't try that (and I don't want to).
+ * <p>I'm just fooling around here but according to the documentation I've read
+ * we should try to limit creation of Connection, Session, MessageProducer and
+ * MessageConsumer to once per application (i.e. during startup). That be the
+ * case we should provide all of those objects in this Module but right now
+ * it's left to the injected classes to manage.
+ *
+ * <p>For optimzation of JMS see:
+ * <li>http://activemq.apache.org/how-do-i-use-jms-efficiently.html.
+ *
+ * <p>Some other reference material I found useful at the time:
+ * <li><a href="http://goo.gl/D7EvLh">Java EE 5 Manual</a>
+ * <li><a href="http://goo.gl/N3M4Nw">JBoss HornetQ User Guide</a>
+ * <li><a href="http://goo.gl/sKStNM">link 3</a>
+ * <li><a href="http://goo.gl/5bw4Cl">link 4</a>
+ * <li><a href="http://goo.gl/Yo87qo">link 5</a>
+ * <li><a href="http://goo.gl/Ryt2XU">link 6</a>
+ *
+ * <p>I eschew configuration files here but I'm guessing that's how most people
+ * use JMS. I think they also use JNDI normally. I didn't try any of that here
+ * (and I don't think I want to).
  */
 public class PubSubModule extends AbstractModule {
   private static final Logger LOG = LoggerFactory.getLogger(PubSubModule.class);
-
   private final String[] args;
 
   public PubSubModule(String[] args) {
@@ -52,6 +65,7 @@ public class PubSubModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    // If I was writing unit tests it might be helpful to mock file I/O.
     bind(BufferedReader.class).toInstance(new BufferedReader(new InputStreamReader(System.in)));
     bind(PrintStream.class).toInstance(System.out);
   }
@@ -79,23 +93,36 @@ public class PubSubModule extends AbstractModule {
   }
 
   /**
-   * Returns the DemoQueue which is defined in the JMS server's hornetq-jms.xml
-   * file. For my installation of Hornetq I had to add it here:
+   * Returns the DemoQueue or DemoTopic which is defined in the JMS server's
+   * hornetq-jms.xml file. For my installation of Hornetq I had to add it here:
    *
    * <code>
    * $HORNETQ_HOME/config/stand-alone/non-clustered/hornetq-jms.xml
    * </code>
    *
+   * <p>The relevant changes I made to the file above looked like this:
+   * <pre>
+   * &gt;queue name="DemoQueue"&lt;
+   *   &gt;entry name="/queue/demo"/&lt;
+   * &gt;/queue&lt;
+   *
+   * &gt;topic name="DemoTopic"&lt;
+   *   &lt;entry name="/topic/demo"/&gt;
+   * &gt;/topic&lt;
+   * </pre>
+   *
    * <p>Messages sent to a queue will only be received by one client, which is
-   * different than a Topic which I believe will be received by all listeners.
+   * different than a Topic which will be received by all listeners.
    *
    * <p>I think you can also do session.createQueue by the way. I need to learn
    * how to set persistence options and stuff like that and also how to add
    * filters.
    */
   @Provides @Singleton
-  public Queue queue() {
-    return HornetQJMSClient.createQueue("DemoQueue");
+  public Destination destination(Args args) {
+    return args.topic
+        ? HornetQJMSClient.createTopic("DemoTopic")
+        : HornetQJMSClient.createQueue("DemoQueue");
   }
 
   /** Takes in the command line arguments. */
@@ -103,10 +130,12 @@ public class PubSubModule extends AbstractModule {
   public static class Args {
     public final String host;
     public final int port;
+    public final boolean topic;
 
-    public Args(String host, int port) {
+    public Args(String host, int port, boolean topic) {
       this.host = host;
       this.port = port;
+      this.topic = topic;
     }
 
     static class Builder {
@@ -116,8 +145,14 @@ public class PubSubModule extends AbstractModule {
       @Option(name = "-p", aliases = "--port", usage = "JMS port name.")
       public int port = 5445;
 
+      @Option(
+          name = "-t",
+          aliases = "--topic",
+          usage = "Specify this flag if a JMS topic should be used, otherwise use a JMS queue.")
+      public boolean topic = false;
+
       public Args build() {
-        return new Args(host, port);
+        return new Args(host, port, topic);
       }
     }
   }
