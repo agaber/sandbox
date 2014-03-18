@@ -14,12 +14,10 @@ import com.google.jimfs.Jimfs;
 
 public class MusicCleanupTest {
   FileSystem fs;
-  MusicCleanup cleanup;
 
   @Before
   public void beforeEach() throws Exception {
     fs = Jimfs.newFileSystem(Configuration.unix());
-    cleanup = new MusicCleanup(fs.getPath("/itunes/music"), false);
   }
 
   @After
@@ -60,7 +58,7 @@ public class MusicCleanupTest {
     assertTrue(Files.exists(fs.getPath("/itunes/music/album3/subdir/song11.mp3")));
 
     // Execute.
-    cleanup.cleanup();
+    new MusicCleanup(fs.getPath("/itunes/music"), false).cleanup();
 
     // Verify.
     assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song1.mp3")));
@@ -88,8 +86,7 @@ public class MusicCleanupTest {
     assertTrue(Files.exists(fs.getPath("/itunes/music/album1/song1 1.mp3")));
 
     // Execute.
-    cleanup = new MusicCleanup(fs.getPath("/itunes/music"), true);
-    cleanup.cleanup();
+    new MusicCleanup(fs.getPath("/itunes/music"), true).cleanup();
 
     // Verify.
     assertTrue(Files.exists(fs.getPath("/itunes/music/album1/song1.mp3")));
