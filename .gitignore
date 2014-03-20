@@ -1,6 +1,7 @@
 .classpath
 .project
 .*
+!/.gitignore
 
 # Ignore generated output
 target/
@@ -9,3 +10,6 @@ target/
 *.pyc
 
 datanucleus.log
+
+# Ignore intellij files.
+*.iml
