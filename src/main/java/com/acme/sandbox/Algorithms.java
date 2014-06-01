@@ -3,6 +3,7 @@ package com.acme.sandbox;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -72,6 +73,12 @@ public final class Algorithms {
     for(Collection<T> set : sets)
       result.addAll(set);
     return ImmutableSet.copyOf(result);
+  }
+
+  public static BigInteger factorial(BigInteger n) {
+    return n.compareTo(BigInteger.ONE) >= 0
+        ? factorial(n.subtract(BigInteger.ONE)).multiply(n)
+        : BigInteger.ONE;
   }
 
   private Algorithms() {}

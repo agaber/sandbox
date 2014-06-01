@@ -91,4 +91,9 @@ public class AlgorithmsTest {
         new String[] { "a", "b", "c" },
         result.toArray());
   }
+
+  @Test
+  public void factorial() throws Exception {
+    assertEquals(120, factorial(new BigInteger(5)).intValue());
+  }
 }
