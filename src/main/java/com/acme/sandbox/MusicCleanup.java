@@ -59,7 +59,7 @@ class MusicCleanup {
   void cleanup() throws IOException {
     Files.walk(path)
         .filter(file -> !Files.isDirectory(file))
-        .collect(Collectors.groupingBy(MusicCleanup::uniqueName))
+        .collect(Collectors.groupingBy(this::uniqueName))
         .forEach((String upath, List<Path> files) -> {
           files.stream().skip(1).forEach(file -> delete(file));
         });
@@ -76,7 +76,7 @@ class MusicCleanup {
     }
   }
 
-  private static String uniqueName(Path path) {
+  private String uniqueName(Path path) {
     return path.toAbsolutePath().toString()
         .replaceAll("\\.mp3$", "")
         .replaceAll(" \\d+$", "");
