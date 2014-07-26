@@ -61,18 +61,21 @@ public class MusicCleanupTest {
     new MusicCleanup(fs.getPath("/itunes/music"), false).cleanup();
 
     // Verify.
-    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song1.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album1/song1 1.mp3")));
-    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song1 2.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album1/song2.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album1/song3 1.mp3")));
-    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song3 3.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album2/song1.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album2/song2.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album2/song22.mp3")));
-    assertFalse(Files.exists(fs.getPath("/itunes/music/album3/subdir/song a.mp3")));
     assertTrue(Files.exists(fs.getPath("/itunes/music/album3/subdir/song a 1.mp3")));  // delete
     assertTrue(Files.exists(fs.getPath("/itunes/music/album3/subdir/song11.mp3")));
+
+    // This stuff should be deleted.
+    // TODO: Improve the predictability of which files get deleted.
+    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song1.mp3")));
+    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song1 2.mp3")));
+    assertFalse(Files.exists(fs.getPath("/itunes/music/album1/song3 3.mp3")));
+    assertFalse(Files.exists(fs.getPath("/itunes/music/album3/subdir/song a.mp3")));
   }
 
   @Test

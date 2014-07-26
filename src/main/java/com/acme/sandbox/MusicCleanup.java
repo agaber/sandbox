@@ -5,14 +5,11 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,14 +20,16 @@ import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Throwables;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
 
 /**
- * For some reason iTunes is creating multiple copies for nearly every song.
- * This code cleans it up while also experimenting with Java 7's new I/O lib.
+ * For some reason iTunes creates multiple copies of my imported songs.
+ * This code cleans it up while also experimenting with Java 7's new I/O lib
+ * and (new!) Java 8 streams and lambdas.
  *
  * <p>I'm pretty sure I've done this before by the way...
  *
@@ -58,24 +57,29 @@ class MusicCleanup {
   }
 
   void cleanup() throws IOException {
-    final Set<String> paths = new HashSet<>();
-    Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        String name = file.toAbsolutePath().toString()
-            .replaceAll("\\.mp3$", "")
-            .replaceAll(" \\d+$", "");
-        if (paths.contains(name)) {
-          if (!dryRun) {
-            Files.delete(file);
-          }
-          LOG.info("{}rm {}", dryRun ? "Would have executed " : "", file);
-        } else {
-          paths.add(name);
-        }
-        return FileVisitResult.CONTINUE;
+    Files.walk(path)
+        .filter(file -> !Files.isDirectory(file))
+        .collect(Collectors.groupingBy(MusicCleanup::uniqueName))
+        .forEach((String upath, List<Path> files) -> {
+          files.stream().skip(1).forEach(file -> delete(file));
+        });
+  }
+
+  private void delete(Path file) {
+    try {
+      if (!dryRun) {
+        Files.deleteIfExists(file);
       }
-    });
+      LOG.info("{}rm {}", dryRun ? "Would have executed " : "", file);
+    } catch (IOException e) {
+      throw Throwables.propagate(e);
+    }
+  }
+
+  private static String uniqueName(Path path) {
+    return path.toAbsolutePath().toString()
+        .replaceAll("\\.mp3$", "")
+        .replaceAll(" \\d+$", "");
   }
 }
 
