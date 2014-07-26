@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,18 @@ public class JavaTest {
   @Before
   public void beforeEach() throws Exception {
     this.count = 0;
+  }
+  
+  @Test
+  public void messageformat() throws Exception {
+	System.out.println(MessageFormat.format(
+		"ID do trabalho: {0}[new-line-dont-translate][new-line-dont-translate]ID da "
+		+ "campanha: {1}[new-line-dont-translate][new-line-dont-translate]Nome da "
+		+ "campanha: {2}[new-line-dont-translate][new-line-dont-translate]Enviado "
+		+ "por: {3}[new-line-dont-translate][new-line-dont-translate]Enviado em: "
+		+ "{4,date,aaaa/MM/dd HH:mm z}[new-line-dont-translate][new-line-dont-translate]"
+		+ "Status: processamento conclu’do.", 
+		"1", "2", "3", new Date()));
   }
 
   @Test

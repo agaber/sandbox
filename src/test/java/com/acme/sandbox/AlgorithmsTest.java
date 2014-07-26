@@ -1,8 +1,12 @@
 package com.acme.sandbox;
 
-import static org.junit.Assert.assertArrayEquals;
-import static com.acme.sandbox.Algorithms.*;
+import static com.acme.sandbox.Algorithms.bubbleSort;
+import static com.acme.sandbox.Algorithms.intersection;
+import static com.acme.sandbox.Algorithms.quickSort;
+import static com.acme.sandbox.Algorithms.union;
+import static org.junit.Assert.*;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -93,7 +97,7 @@ public class AlgorithmsTest {
   }
 
   @Test
-  public void factorial() throws Exception {
-    assertEquals(120, factorial(new BigInteger(5)).intValue());
+  public void testFactorial() throws Exception {
+    assertEquals(120, Algorithms.factorial(new BigInteger("5")).intValue());
   }
 }
