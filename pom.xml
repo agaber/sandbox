@@ -19,8 +19,8 @@
   <properties>
     <downloadJavadocs>true</downloadJavadocs>
     <downloadSources>true</downloadSources>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -67,30 +67,6 @@
       <artifactId>jackson-mapper-asl</artifactId>
       <version>1.9.12</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.datanucleus</groupId>
-      <artifactId>datanucleus-api-jdo</artifactId>
-      <version>[3.2.0, 3.2.99)</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.datanucleus</groupId>
-      <artifactId>datanucleus-core</artifactId>
-      <version>[3.2.0, 3.2.99)</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.datanucleus</groupId>
-      <artifactId>datanucleus-jdo-query</artifactId>
-      <version>3.0.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.datanucleus</groupId>
-      <artifactId>datanucleus-mongodb</artifactId>
-      <version>[3.2.0, 3.2.99)</version>
-    </dependency>
     
     <dependency>
       <groupId>org.jgrapht</groupId>
@@ -120,12 +96,6 @@
       <groupId>javax.cache</groupId>
       <artifactId>cache-api</artifactId>
       <version>0.61</version>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.jdo</groupId>
-      <artifactId>jdo-api</artifactId>
-      <version>3.0.1</version>
     </dependency>
 
     <dependency>
@@ -181,24 +151,6 @@
     <finalName>${project.name}</finalName>
 
     <plugins>
-      <plugin>
-        <groupId>org.datanucleus</groupId>
-        <artifactId>datanucleus-maven-plugin</artifactId>
-        <version>3.2.0-release</version>
-        <configuration>
-          <api>JDO</api>
-          <props>${basedir}/datanucleus.properties</props>
-  <!--      <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
-          <verbose>true</verbose>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>process-classes</phase>
-            <goals><goal>enhance</goal></goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>

@@ -25,7 +25,7 @@ public class JavaTest {
   public void beforeEach() throws Exception {
     this.count = 0;
   }
-  
+
   @Test
   public void messageformat() throws Exception {
 	System.out.println(MessageFormat.format(
@@ -34,7 +34,7 @@ public class JavaTest {
 		+ "campanha: {2}[new-line-dont-translate][new-line-dont-translate]Enviado "
 		+ "por: {3}[new-line-dont-translate][new-line-dont-translate]Enviado em: "
 		+ "{4,date,aaaa/MM/dd HH:mm z}[new-line-dont-translate][new-line-dont-translate]"
-		+ "Status: processamento conclu’do.", 
+		+ "Status: processamento concludo.",
 		"1", "2", "3", new Date()));
   }
 
