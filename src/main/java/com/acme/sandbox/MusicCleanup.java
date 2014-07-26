@@ -36,8 +36,8 @@ import com.google.inject.Provides;
  *
  * <p>Usage:
  * <pre>
- * mvn exec:java -Dexec.mainClass="com.acme.sandbox.MusicCleanup" \
- *   -Dexec.args="--dir /path/to/itunes --dry_run"
+   mvn exec:java -Dexec.mainClass="com.acme.sandbox.MusicCleanup" \
+     -Dexec.args="--dir \"$HOME/Music/iTunes/iTunes Media/Music/\" --dry_run"
  * </pre>
  */
 class MusicCleanup {
