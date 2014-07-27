@@ -1,0 +1,36 @@
+// This gradle build file doesn't work with this project yet.
+// TODO: Make this gradle build file work with this project. =)
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+// apply plugin: 'idea'
+// sourceCompatibility = '1.8'
+// targetCompatibility = '1.8'
+// version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.google.guava:guava:16.0.1'
+  
+  // For rest.
+  compile 'com.sun.jersey:jersey-core:1.18.1'
+  compile 'com.sun.jersey:jersey-json:1.18.1'
+  compile 'com.sun.jersey:jersey-client:1.18.1'
+
+  testCompile 'com.google.jimfs:jimfs:1.0-rc1'
+  testCompile 'junit:junit:4.+'
+}
+
+// The easier/correct way to do this is to just install the application plugin,
+// but I want to dynamically change the main class from the command line. Ex:
+// $ gradle exec -DmainClass="com.acme.sandbox.Lambdas"
+task exec(type: JavaExec) {
+  ext.mainClass = System.getProperty('mainClass', 'com.acme.sandbox.Lambdas')
+  printf('Running %s.%n', mainClass)
+  main = mainClass
+  classpath = sourceSets.main.runtimeClasspath
+}
