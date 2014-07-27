@@ -5,6 +5,7 @@
 
 # Ignore generated output
 target/
+build/
 
 # Python compiled files
 *.pyc
