@@ -39,6 +39,7 @@ import com.google.inject.Provides;
      -Dexec.args="--dir \"$HOME/Music/iTunes/iTunes Media/Music/\" --dry_run"
  * </pre>
  */
+@Singleton
 class MusicCleanup {
   private static final Logger LOG = LoggerFactory.getLogger(MusicCleanup.class);
 
