@@ -79,7 +79,7 @@ public class MusicCleanupTest {
   }
 
   @Test
-  public void cleanupWitDryRun() throws Exception {
+  public void cleanupWithDryRun() throws Exception {
     Files.createDirectories(fs.getPath("/itunes/music/album1"));
     Files.createFile(fs.getPath("/itunes/music/album1/song1.mp3"));
     Files.createFile(fs.getPath("/itunes/music/album1/song1 1.mp3"));

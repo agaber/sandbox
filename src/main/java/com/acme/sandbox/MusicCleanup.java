@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -58,20 +59,27 @@ class MusicCleanup {
   }
 
   void cleanup() throws IOException {
+    AtomicLong counter = new AtomicLong();
     Files.walk(path)
         .filter(file -> !Files.isDirectory(file))
         .collect(Collectors.groupingBy(this::uniqueName))
         .forEach((String upath, List<Path> files) -> {
-          files.stream().skip(1).forEach(file -> delete(file));
+          files.stream().skip(1).forEach(file -> {
+            if (delete(file)) {
+              counter.incrementAndGet();
+            }
+          });
         });
+    LOG.info("{} files were deleted.", counter.get());
   }
 
-  private void delete(Path file) {
+  private boolean delete(Path file) {
     try {
       if (!dryRun) {
-        Files.deleteIfExists(file);
+        LOG.info("{}rm {}", dryRun ? "Would have executed " : "", file);
+        return Files.deleteIfExists(file);
       }
-      LOG.info("{}rm {}", dryRun ? "Would have executed " : "", file);
+      return false;
     } catch (IOException e) {
       throw Throwables.propagate(e);
     }
