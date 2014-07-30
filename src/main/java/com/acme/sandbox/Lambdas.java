@@ -91,10 +91,10 @@ class Lambdas {
   }
 
   private static String salutation(String name) {
-    return "hi " + name;
+    return "hi, " + name;
   }
 
   private static String mean(String name) {
-    return "you suck " + name;
+    return "you suck, " + name;
   }
 }
