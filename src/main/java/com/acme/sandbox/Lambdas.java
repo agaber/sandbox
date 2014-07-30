@@ -7,10 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -77,5 +80,21 @@ class Lambdas {
         .distinct()
         .filter(s -> s.length() > 10 && !s.contains("'"))
         .collect(Collectors.toList());
+  }
+
+  /** Store functions as variables. Cool. */
+  public static String getMessage(String type, String name) {
+    Map<String, Function<String, String>> map = new HashMap<>();
+    map.put("salutation", Lambdas::salutation);
+    map.put("mean", Lambdas::mean);
+    return map.get(type).apply(name);
+  }
+
+  public static String salutation(String name) {
+    return "hi " + name;
+  }
+
+  public static String mean(String name) {
+    return "you suck " + name;
   }
 }
