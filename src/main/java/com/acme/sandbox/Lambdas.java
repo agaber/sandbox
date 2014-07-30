@@ -90,11 +90,11 @@ class Lambdas {
     return map.get(type).apply(name);
   }
 
-  public static String salutation(String name) {
+  private static String salutation(String name) {
     return "hi " + name;
   }
 
-  public static String mean(String name) {
+  private static String mean(String name) {
     return "you suck " + name;
   }
 }
