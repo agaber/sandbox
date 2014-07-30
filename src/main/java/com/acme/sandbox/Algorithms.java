@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
@@ -74,6 +75,30 @@ public final class Algorithms {
     return n.compareTo(BigInteger.ONE) >= 0
         ? factorial(n.subtract(BigInteger.ONE)).multiply(n)
         : BigInteger.ONE;
+  }
+
+  public static BigInteger factorial(long n) {
+    return factorial(BigInteger.valueOf(n));
+  }
+
+  public static long fibonacci(long n) {
+    if (n < 1) {
+      return 0;
+    }
+    return n < 3 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+  }
+
+  public static long binaryToDecimal(String binary) {
+    Preconditions.checkArgument(
+        binary.matches("^[0-1]*$"),
+        "String parameter must be a binary value.");
+    long decimal = 0;
+    int two = 1;
+    for (int i = binary.length() - 1; i >= 0; i--) {
+      decimal += Byte.parseByte(String.valueOf(binary.charAt(i))) * two;
+      two *= 2;
+    }
+    return decimal;
   }
 
   private Algorithms() {}

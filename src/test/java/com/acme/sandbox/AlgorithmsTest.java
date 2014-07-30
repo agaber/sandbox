@@ -4,7 +4,9 @@ import static com.acme.sandbox.Algorithms.bubbleSort;
 import static com.acme.sandbox.Algorithms.intersection;
 import static com.acme.sandbox.Algorithms.quickSort;
 import static com.acme.sandbox.Algorithms.union;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -96,8 +98,57 @@ public class AlgorithmsTest {
         result.toArray());
   }
 
+
   @Test
   public void testFactorial() throws Exception {
     assertEquals(120, Algorithms.factorial(new BigInteger("5")).intValue());
+    assertEquals(BigInteger.valueOf(1), Algorithms.factorial(1));
+    assertEquals(BigInteger.valueOf(2), Algorithms.factorial(2));
+    assertEquals(BigInteger.valueOf(6), Algorithms.factorial(3));
+    assertEquals(BigInteger.valueOf(120), Algorithms.factorial(5));
+    assertEquals(BigInteger.valueOf(720), Algorithms.factorial(6));
+    assertEquals(
+        new BigInteger("933262154439441526816992388562667004907159682643816214"
+            + "6859296389521759999322991560894146397615651828625369792082722375"
+            + "8251185210916864000000000000000000000000"),
+        Algorithms.factorial(100));
+  }
+
+  @Test
+  public void testFibonacci() throws Exception {
+    long[] expected = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,};
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], Algorithms.fibonacci(i));
+    }
+  }
+
+  @Test
+  public void testBinaryToDecimal() throws Exception {
+    assertEquals(1, Algorithms.binaryToDecimal("1"));
+    assertEquals(2, Algorithms.binaryToDecimal("10"));
+    assertEquals(3, Algorithms.binaryToDecimal("11"));
+    assertEquals(4, Algorithms.binaryToDecimal("100"));
+    assertEquals(8, Algorithms.binaryToDecimal("1000"));
+    assertEquals(16, Algorithms.binaryToDecimal("10000"));
+    assertEquals(32, Algorithms.binaryToDecimal("100000"));
+    assertEquals(64, Algorithms.binaryToDecimal("1000000"));
+    assertEquals(429, Algorithms.binaryToDecimal("110101101"));
+  }
+
+  @Test
+  public void binaryToDecimalShouldRequireBinaryValues() throws Exception {
+    try {
+      Algorithms.binaryToDecimal("3");
+      fail("Expected an error");
+    } catch (IllegalArgumentException e) {
+      // good.
+    }
+
+    try {
+      Algorithms.binaryToDecimal("abc");
+      fail("Expected an error");
+    } catch (IllegalArgumentException e) {
+      // good.
+    }
   }
 }
