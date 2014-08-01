@@ -1,13 +1,15 @@
 package com.acme.sandbox;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
@@ -89,7 +91,7 @@ public final class Algorithms {
   }
 
   public static long binaryToDecimal(String binary) {
-    Preconditions.checkArgument(
+    checkArgument(
         binary.matches("^[0-1]*$"),
         "String parameter must be a binary value.");
     long decimal = 0;
@@ -99,6 +101,30 @@ public final class Algorithms {
       two *= 2;
     }
     return decimal;
+  }
+
+  /**
+   * Returns true if the given array of numbers has 180 degrees of rotation
+   * symmetry. For example, 16891 is the same if you rotated it 180°.
+   */
+  public static boolean isSymmetric(int... numbers) {
+    checkArgument(numbers.length > 0);
+    Map<Integer, Integer> symmetryMap = ImmutableMap.of(
+        0, 0,
+        1, 1,
+        6, 9,
+        8, 8,
+        9, 6);
+
+    for (int i = 0, j = numbers.length - 1; i < numbers.length && i <= j; i++, j--) {
+      int a = numbers[i];
+      int b = numbers[j];
+      if (!symmetryMap.containsKey(a) || b != symmetryMap.get(a)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private Algorithms() {}

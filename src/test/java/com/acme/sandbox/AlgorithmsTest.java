@@ -6,6 +6,8 @@ import static com.acme.sandbox.Algorithms.quickSort;
 import static com.acme.sandbox.Algorithms.union;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
@@ -150,5 +152,34 @@ public class AlgorithmsTest {
     } catch (IllegalArgumentException e) {
       // good.
     }
+  }
+
+  @Test
+  public void isSymmetric() throws Exception {
+    assertTrue(Algorithms.isSymmetric(0));
+    assertTrue(Algorithms.isSymmetric(1));
+    assertTrue(Algorithms.isSymmetric(8));
+
+    assertTrue(Algorithms.isSymmetric(1, 8, 1));
+    assertTrue(Algorithms.isSymmetric(6, 8, 9));
+    assertTrue(Algorithms.isSymmetric(6, 9));
+    assertTrue(Algorithms.isSymmetric(8, 8));
+    assertTrue(Algorithms.isSymmetric(1, 1));
+    assertTrue(Algorithms.isSymmetric(8, 8, 8));
+    assertTrue(Algorithms.isSymmetric(1, 6, 8, 9, 1));
+    assertTrue(Algorithms.isSymmetric(8, 1, 8));
+
+    assertFalse(Algorithms.isSymmetric(2));
+    assertFalse(Algorithms.isSymmetric(3));
+    assertFalse(Algorithms.isSymmetric(4));
+    assertFalse(Algorithms.isSymmetric(5));
+    assertFalse(Algorithms.isSymmetric(6));
+    assertFalse(Algorithms.isSymmetric(7));
+    assertFalse(Algorithms.isSymmetric(9));
+    assertFalse(Algorithms.isSymmetric(6, 7));
+    assertFalse(Algorithms.isSymmetric(6, 7, 9));
+    assertFalse(Algorithms.isSymmetric(4, 8, 4));
+    assertFalse(Algorithms.isSymmetric(8, 5, 8));
+    assertFalse(Algorithms.isSymmetric(9, 9));
   }
 }
