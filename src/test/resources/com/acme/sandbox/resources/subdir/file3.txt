@@ -1,0 +1,1 @@
+Text from file3.txt.

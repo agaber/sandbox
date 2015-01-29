@@ -36,6 +36,7 @@ dependencies {
 
   // Testing.
   testCompile 'com.google.jimfs:jimfs:1.0-rc1'
+  testCompile 'com.google.truth:truth:0.25'
   testCompile 'junit:junit:4.+'
   testCompile 'org.mockito:mockito-all:1.9.+'
 }
