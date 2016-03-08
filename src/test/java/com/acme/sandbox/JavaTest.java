@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -102,5 +104,15 @@ public class JavaTest {
 
     carA = new Car("ford");
     assertNotSame(carA, carB);
+  }
+
+  @Test
+  public void itShouldFormatDates() {
+    assertEquals(
+        "2016-03-07 13:55 EST",
+        DateTimeFormat.forPattern("yyyy-MM-dd HH:mm z").print(new DateTime(2016, 03, 07, 13, 55)));
+    assertEquals(
+        "2016-03-07 01:55 EST",
+        DateTimeFormat.forPattern("yyyy-MM-dd hh:mm z").print(new DateTime(2016, 03, 07, 13, 55)));
   }
 }
