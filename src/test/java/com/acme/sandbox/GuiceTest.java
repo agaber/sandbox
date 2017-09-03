@@ -9,6 +9,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+import com.google.inject.Provider;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 
@@ -31,6 +32,9 @@ public class GuiceTest {
     // also works
     Duck<String> duck = injector.getInstance(Key.get(new TypeLiteral<Duck<String>>() { }));
     assertEquals("quack", duck.speak());
+
+    Human human = injector.getInstance(Human.class);
+    assertEquals("bark", human.walkDog());
   }
 
 }
@@ -54,6 +58,39 @@ class DuckModule extends AbstractModule {
     bind(new TypeLiteral<Speaker<String>>(){})
         .to(new TypeLiteral<Duck<String>>(){})
         .in(Scopes.SINGLETON);
+  }
+}
+
+class Dog {
+  public String bark() {
+    return "bark";
+  }
+}
+
+class DogProvider implements Provider<Dog> {
+  @Override
+  public Dog get() {
+    return new Dog();
+  }
+}
+
+class Human {
+  // private final Provider<Dog> dogProvider;
+  // private final DogProvider dogProvider;
+  private final Dog dog;
+
+  @Inject
+  Human(
+      //Provider<Dog> dogProvider) {
+      // DogProvider dogProvider) {
+      Dog dog) {
+    //this.dogProvider = dogProvider;
+    this.dog = dog;
+  }
+
+  public String walkDog() {
+    // return dogProvider.get().bark();
+    return dog.bark();
   }
 }
 
