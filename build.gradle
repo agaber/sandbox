@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
   compile 'args4j:args4j:2.0.26'
+  compile 'com.google.code.findbugs:jsr305:3.0.2' // for javax.annotation
   compile 'com.google.guava:guava:16.0.1'
   compile 'com.google.inject:guice:3.0'
   compile 'commons-beanutils:commons-beanutils:1.8.3'

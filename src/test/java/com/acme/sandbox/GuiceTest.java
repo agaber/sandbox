@@ -1,17 +1,10 @@
 package com.acme.sandbox;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import com.google.inject.*;
 import org.junit.Test;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Provider;
-import com.google.inject.Scopes;
-import com.google.inject.TypeLiteral;
 
 public class GuiceTest {
 
@@ -37,6 +30,13 @@ public class GuiceTest {
     assertEquals("bark", human.walkDog());
   }
 
+  @Test
+  public void itShouldMeow() throws Exception {
+    Injector injector = Guice.createInjector(new CatModule());
+
+    Provider<Cat> catProvider = injector.getProvider(Cat.class);
+    assertThat(catProvider.get()).isNotSameAs(catProvider.get());
+  }
 }
 
 interface Speaker<T extends CharSequence> {
@@ -71,6 +71,23 @@ class DogProvider implements Provider<Dog> {
   @Override
   public Dog get() {
     return new Dog();
+  }
+}
+
+class Cat implements Speaker<String> {
+  @Override
+  public String speak() {
+    return "meow";
+  }
+}
+
+class CatModule extends AbstractModule {
+  @Override
+  protected void configure() {}
+
+  @Provides
+  Cat provideCat() {
+    return new Cat();
   }
 }
 
