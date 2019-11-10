@@ -29,7 +29,7 @@ public final class Algorithms {
 
   private static <T extends Comparable<T>> void quickSort(List<T> list, int first, int last) {
     if (first >= last) return;
-    int pivot = partition(list, first, last);
+    var pivot = partition(list, first, last);
     quickSort(list, first, pivot);
     quickSort(list, pivot + 1, last);
   }
@@ -94,8 +94,8 @@ public final class Algorithms {
     checkArgument(
         binary.matches("^[0-1]*$"),
         "String parameter must be a binary value.");
-    long decimal = 0;
-    int two = 1;
+    var decimal = 0;
+    var two = 1;
     for (int i = binary.length() - 1; i >= 0; i--) {
       decimal += Byte.parseByte(String.valueOf(binary.charAt(i))) * two;
       two *= 2;
@@ -117,8 +117,8 @@ public final class Algorithms {
         9, 6);
 
     for (int i = 0, j = numbers.length - 1; i < numbers.length && i <= j; i++, j--) {
-      int a = numbers[i];
-      int b = numbers[j];
+      var a = numbers[i];
+      var b = numbers[j];
       if (!symmetryMap.containsKey(a) || b != symmetryMap.get(a)) {
         return false;
       }
