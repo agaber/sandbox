@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 version = '1.0'
 
 repositories {
@@ -10,35 +10,35 @@ repositories {
 }
 
 dependencies {
-  compile 'args4j:args4j:2.0.26'
-  compile 'com.google.code.findbugs:jsr305:3.0.2' // for javax.annotation
-  compile 'com.google.guava:guava:16.0.1'
-  compile 'com.google.inject:guice:3.0'
-  compile 'commons-beanutils:commons-beanutils:1.8.3'
-  compile 'commons-lang:commons-lang:2.6'
-  compile 'joda-time:joda-time:2.9.2'
-  compile 'org.jgrapht:jgrapht-jdk1.5:0.7.3'
-  compile 'org.yaml:snakeyaml:1.12'
+  implementation 'args4j:args4j:2.33'
+  implementation 'com.google.code.findbugs:jsr305:3.0.2' // for javax.annotation
+  implementation 'com.google.guava:guava:16.0.1'
+  implementation 'com.google.inject:guice:3.0'
+  implementation 'commons-beanutils:commons-beanutils:1.8.3'
+  implementation 'commons-lang:commons-lang:2.6'
+  implementation 'joda-time:joda-time:2.9.2'
+  implementation 'org.jgrapht:jgrapht-jdk1.5:0.7.3'
+  implementation 'org.yaml:snakeyaml:1.12'
 
   // REST client.
-  compile 'com.sun.jersey:jersey-core:1.18.1'
-  compile 'com.sun.jersey:jersey-json:1.18.1'
-  compile 'com.sun.jersey:jersey-client:1.18.1'
-  compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+  implementation 'com.sun.jersey:jersey-core:1.18.1'
+  implementation 'com.sun.jersey:jersey-json:1.18.1'
+  implementation 'com.sun.jersey:jersey-client:1.18.1'
+  implementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
 
   // JMS and Hornetq stuff for pubsub client.
-  compile 'javax.cache:cache-api:0.61'
-  compile 'javax.jms:javax.jms-api:2.0'
-  compile 'org.hornetq:hornetq-jms-client:2.4.1.Final'
-  compile 'org.hornetq:hornetq-transports:2.1.0.r9031'
+  implementation 'javax.cache:cache-api:0.61'
+  implementation 'javax.jms:javax.jms-api:2.0'
+  implementation 'org.hornetq:hornetq-jms-client:2.4.1.Final'
+  implementation 'org.hornetq:hornetq-transports:2.1.0.r9031'
 
   // Logging.
-  compile 'ch.qos.logback:logback-classic:1.1.1'
-  compile 'org.slf4j:slf4j-api:1.7.6'
+  implementation 'ch.qos.logback:logback-classic:1.1.1'
+  implementation 'org.slf4j:slf4j-api:1.7.6'
 
   // Testing.
-  testCompile 'com.google.jimfs:jimfs:1.0-rc1'
-  testCompile 'com.google.truth:truth:0.25'
-  testCompile 'junit:junit:4.+'
-  testCompile 'org.mockito:mockito-all:1.9.+'
+  testImplementation 'com.google.jimfs:jimfs:1.0-rc1'
+  testImplementation 'com.google.truth:truth:0.25'
+  testImplementation 'junit:junit:4.+'
+  testImplementation 'org.mockito:mockito-all:1.9.+'
 }

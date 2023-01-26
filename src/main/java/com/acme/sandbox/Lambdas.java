@@ -75,7 +75,7 @@ class Lambdas {
   /** Does some weird shit to the collection param for the hell of it. */
   static List<String> manipulate(List<String> words, boolean parallel) {
     return (parallel ? words.stream() : words.parallelStream())
-        .sorted((o1, o2) -> new Integer(o1.length()).compareTo(o2.length()))
+        .sorted((o1, o2) -> Integer.valueOf(o1.length()).compareTo(o2.length()))
         .map(s -> s.toLowerCase())
         .distinct()
         .filter(s -> s.length() > 10 && !s.contains("'"))

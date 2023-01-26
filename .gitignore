@@ -16,3 +16,6 @@ datanucleus.log
 
 # Ignore intellij files.
 *.iml
+
+# Ignore some gradle stuff.
+gradle/wrapper/

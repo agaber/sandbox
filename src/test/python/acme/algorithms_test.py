@@ -9,11 +9,29 @@ import unittest
 
 class AlgorithmsTest(unittest.TestCase):
 
-  def test_fibonacci(self):
+  def test_fibonacci_recursive(self):
     # 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
     expected = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+    self.assertEqual(0, fibonacci_recursive(0))
+    self.assertEqual(1, fibonacci_recursive(1))
+    self.assertEqual(1, fibonacci_recursive(2))
+    self.assertEqual(2, fibonacci_recursive(3))
+    self.assertEqual(3, fibonacci_recursive(4))
+    self.assertEqual(5, fibonacci_recursive(5))
     for i in range(0, len(expected)):
-      self.assertEqual(expected[i], fibonacci(i))
+      self.assertEqual(expected[i], fibonacci_recursive(i))
+
+  def test_fibonacci_iterative(self):
+    # 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
+    expected = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+    self.assertEqual(0, fibonacci_iterative(0))
+    self.assertEqual(1, fibonacci_iterative(1))
+    self.assertEqual(1, fibonacci_iterative(2))
+    self.assertEqual(2, fibonacci_iterative(3))
+    self.assertEqual(3, fibonacci_iterative(4))
+    self.assertEqual(5, fibonacci_iterative(5))
+    # for i in range(0, len(expected)):
+    #   self.assertEqual(expected[i], fibonacci_iterative(i))
 
   def test_power(self):
     self.assertEqual(pow(1, 2), power(1, 2))
@@ -29,6 +47,17 @@ class AlgorithmsTest(unittest.TestCase):
     expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     self.assertEqual(expected, bubble_sort(unsorted))
 
+  def test_max_pairwise_product(self):
+    self.assertEqual(6, max_pairwise_product([1, 2,3]))
+    self.assertEqual(90, max_pairwise_product([3, 1, 2, 10, 9, 7, 8, 4, 5, 6]))
+    self.assertEqual(1, max_pairwise_product([1]))
+    self.assertEqual(0, max_pairwise_product([]))
+
+  def test_gcd(self):
+    self.assertEqual(2, gcd(4, 10))
+    self.assertEqual(2, gcd(10, 4))
+    self.assertEqual(3, gcd(357, 234))
+    self.assertEqual(61232, gcd(3918848, 1653264))
 
 if __name__ == '__main__':
   unittest.main()

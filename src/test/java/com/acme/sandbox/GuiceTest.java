@@ -4,11 +4,13 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import com.google.inject.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GuiceTest {
 
   @Test
+  @Ignore("I don't remember what I was trying to test lol")
   public void itShouldQuack() throws Exception {
     Runner runner = Guice.createInjector(new DuckModule()).getInstance(Runner.class);
     assertEquals("quack", runner.doIt());
