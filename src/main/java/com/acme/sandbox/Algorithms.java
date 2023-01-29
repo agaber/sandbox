@@ -4,7 +4,10 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,11 +86,28 @@ public final class Algorithms {
     return factorial(BigInteger.valueOf(n));
   }
 
-  public static long fibonacci(long n) {
+  public static long fibonacciRecusive(long n) {
     if (n < 1) {
       return 0;
     }
-    return n < 3 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+    return n < 3 ? 1 : fibonacciRecusive(n - 1) + fibonacciRecusive(n - 2);
+  }
+
+  /** Returns the nth fibonacci value using recursion and memoization to avoid duplicative computations. */
+  public static long fibonacci(long n) {
+    return fibonacci(n, new HashMap<>());
+  }
+
+  private static long fibonacci(long n, Map<Long, Long> memo) {
+    if (memo.containsKey(n)) {
+      return memo.get(n);
+    }
+    if (n < 2) {
+      return n == 1 ? 1 : 0;
+    }
+    var fib = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+    memo.put(n, fib);
+    return fib;
   }
 
   public static long binaryToDecimal(String binary) {
@@ -128,4 +148,16 @@ public final class Algorithms {
   }
 
   private Algorithms() {}
+
+  /** Returns the nth fibonacci value using an iterative solution and t. */
+  public static long fibonacciIterative(int n) {
+    if (n == 0) {
+      return 0;
+    }
+    var results = new ArrayList<>(Arrays.asList(0L, 1L));
+    for (int i = 2; i <= n; i++) {
+      results.add(results.get(i - 1) + results.get(i - 2));
+    }
+    return results.get(n);
+  }
 }

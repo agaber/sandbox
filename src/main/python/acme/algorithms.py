@@ -1,9 +1,9 @@
 """Implementations of various algorithms."""
 
-# From Coursera's Algorithmic Toolbox: Week 2
 # This solution is slow because it computes the same result many times.
+# Performs O(2n) n = O(n)
 def fibonacci_recursive(n: int) -> int:
-  """Return the nth number of the fibonacci sequence using a recursivion."""
+  """Returns the nth number of the fibonacci sequence using a recursivion."""
   if n == 0:
     return 0
   elif n == 1:
@@ -11,10 +11,10 @@ def fibonacci_recursive(n: int) -> int:
   else:
     return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 
-# From Coursera's Algorithmic Toolbox: Week 2
 # Faster than recursive because it stores the previous calculation and reuses it.
+# This uses memoization (stores past duplicative computations in memory).
 def fibonacci_iterative(n: int) -> int:
-  """Return the nth number of the fibonacci sequence more efficiently."""
+  """Returns the nth number of the fibonacci sequence more efficiently."""
   assert n >= 0, "fibonacci can only be calculated for postitive integers"
   if n == 0:
     return 0
@@ -22,6 +22,22 @@ def fibonacci_iterative(n: int) -> int:
   for i in range(2, n + 1):
     results.append(results[i - 1] + results[i - 2])
   return results[n]
+
+# Uses the recursive solution but avoids duplicative recalculations by storing
+# past recusive calculations in a dictionary (the second optional param).
+# Note: I don't like exposing memo in the public API and in a real world scenario
+# I'd create a private version for the memo param.
+def fibonacci(n, memo = {}):
+  """Returns the nth number of the fibonacci sequence using an optimized 
+  recursive solution."""
+  if n in memo.keys():
+    return memo[n]
+  if n == 0:
+    return 0
+  if n == 1:
+    return 1
+  memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo)
+  return memo[n]
 
 def power(n, m):
   """Compute n raised to the power of m recursively."""
@@ -38,6 +54,21 @@ def bubble_sort(lst):
       if lst[j] > lst[j + 1]:
         lst[j], lst[j + 1] = lst[j + 1], lst[j]
   return lst
+
+def selecion_sort(lst):
+  """Sort a list using the selection sort algorithm."""
+  # TODO
+  pass
+
+def merge_sort(lst):
+  """Sort a list using the merge sort algorithm."""
+  # TODO
+  pass
+
+def quick_sort(lst):
+  """Sort a list using the quick sort algorithm."""
+  # TODO
+  pass
 
 # From Coursera's Algorithmic Toolbox: Week 2, Exercise 2
 def max_pairwise_product(numbers):

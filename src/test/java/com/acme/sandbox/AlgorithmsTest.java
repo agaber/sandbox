@@ -117,11 +117,38 @@ public class AlgorithmsTest {
   }
 
   @Test
-  public void testFibonacci() throws Exception {
+  public void fibonacciRecusive() throws Exception {
+    long[] expected = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,};
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], Algorithms.fibonacciRecusive(i));
+    }
+  }
+
+  @Test
+  public void fibonacciIterative() throws Exception {
+    long[] expected = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,};
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], Algorithms.fibonacciIterative(i));
+    }
+  }
+
+  @Test
+  public void fibonacci() throws Exception {
     long[] expected = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,};
     for (int i = 0; i < expected.length; i++) {
       assertEquals(expected[i], Algorithms.fibonacci(i));
     }
+  }
+
+  @Test
+  public void fibonacciForBigNumbers() throws Exception {
+    // So the recursive solution actually runs quickly when executing this test from IntelliJ but not from the command
+    // line ($ gradle test). The recursive solution is slow for sufficiently large values of n because it recalculates
+    // the same values repeatedly.
+    // assertEquals(12_586_269_025L, Algorithms.fibonacciRecusive(50));
+
+    assertEquals(12_586_269_025L, Algorithms.fibonacciIterative(50));
+    assertEquals(12_586_269_025L, Algorithms.fibonacci(50));
   }
 
   @Test
