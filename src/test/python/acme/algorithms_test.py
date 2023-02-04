@@ -51,7 +51,6 @@ class AlgorithmsTest(unittest.TestCase):
     self.assertEqual(12586269025, fibonacci_iterative(50))
     self.assertEqual(12586269025, fibonacci(50))
 
-
   def test_power(self):
     self.assertEqual(pow(1, 2), power(1, 2))
     self.assertEqual(pow(2, 2), power(2, 2))
@@ -69,14 +68,12 @@ class AlgorithmsTest(unittest.TestCase):
   def test_selection_sort(self):
     unsorted = [10, 8, 6, 1, 2, 4, 9, 3, 7, 5]
     expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # TODO
-    # self.assertEqual(expected, selection_sort(unsorted))
+    self.assertEqual(expected, selection_sort(unsorted))
 
   def test_merge_sort(self):
     unsorted = [10, 8, 6, 1, 2, 4, 9, 3, 7, 5]
     expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # TODO
-    # self.assertEqual(expected, merge_sort(unsorted))
+    self.assertEqual(expected, merge_sort(unsorted))
 
   def test_quick_sort(self):
     unsorted = [10, 8, 6, 1, 2, 4, 9, 3, 7, 5]
@@ -95,6 +92,37 @@ class AlgorithmsTest(unittest.TestCase):
     self.assertEqual(2, gcd(10, 4))
     self.assertEqual(3, gcd(357, 234))
     self.assertEqual(61232, gcd(3918848, 1653264))
+
+  def test_merge_sorted_arrays(self):
+    sorter = MergeSortedArray()
+    self.assertEqual(
+        [0, 3, 4, 4, 6, 30, 31],
+        sorter.merge_sorted_arrays([0, 3, 4, 31], [4, 6, 30]))
+
+  def test_merge_sorted_arrays_simple(self):
+    sorter = MergeSortedArray()
+    self.assertEqual(
+        [0, 3, 4, 4, 6, 30, 31],
+        sorter.merge_sorted_arrays_simple([0, 3, 4, 31], [4, 6, 30]))
+
+class TwoSumTest(unittest.TestCase):
+
+  def setUp(self):
+    self.twosum = TwoSum()
+
+  def test_has_pair_with_sum_naive(self):
+    self.assertEqual(False, self.twosum.has_pair_with_sum_naive([1, 2, 3, 9], 8))
+    self.assertEqual(True, self.twosum.has_pair_with_sum_naive([1, 2, 4, 4], 8))
+
+  def has_pair_with_sum_sorted(self):
+    self.assertEqual(False, self.twosum.has_pair_with_sum_sorted([1, 2, 3, 9], 8))
+    self.assertEqual(True, self.twosum.has_pair_with_sum_sorted([1, 2, 4, 4], 8))
+
+  def has_pair_with_sum_sorted(self):
+    self.assertEqual(False, self.twosum.has_pair_with_sum_unsorted([1, 2, 3, 9], 8))
+    self.assertEqual(True, self.twosum.has_pair_with_sum_unsorted([1, 2, 4, 4], 8))
+    self.assertEqual(False, self.twosum.has_pair_with_sum_unsorted([9, 2, 1, 3], 8))
+    self.assertEqual(True, self.twosum.has_pair_with_sum_unsorted([4, 2, 4, 1], 8))
 
 if __name__ == '__main__':
   unittest.main()
